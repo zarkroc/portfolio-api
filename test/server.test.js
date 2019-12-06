@@ -90,6 +90,10 @@ describe('Create user and login', () => {
         email: "test@example.com",
         password: "testtest",
     };
+    let falseUser = {
+        email: "test@example.com",
+        password: "testtest12313213",
+    };
     describe('Register', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
@@ -116,6 +120,7 @@ describe('Create user and login', () => {
             });
         });
     })
+    
     describe('Unegister', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
@@ -125,6 +130,26 @@ describe('Create user and login', () => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User removed");
                 res.body.user.should.be.an('string');
+                done();
+            });
+        });
+    })
+});
+
+describe('Unregister user not existing', () => {
+    let user = {
+        email: "test@example.com",
+        password: "testtest",
+    };
+    describe('Unegister', () => {
+        it('should get 401', (done) => {
+            chai.request(server)
+            .post("/unregister")
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(401)
+                res.body.should.be.an("object")
+                res.body.errors.should.be.an("object")
                 done();
             });
         });

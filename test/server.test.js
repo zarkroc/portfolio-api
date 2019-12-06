@@ -116,5 +116,17 @@ describe('Create user and login', () => {
             });
         });
     })
-   
+    describe('Unegister', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+            .post("/unregister")
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
+        });
+    })
 });

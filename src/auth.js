@@ -57,8 +57,15 @@ const auth = {
         }
 
         Auth.findOne({ email: email }, function (err, userInfo) {
-            if (err) {
-                next(err)
+            if (err ||!userInfo) {
+                return res.status(401).json({
+                    errors: {
+                        status: 401,
+                        source: "/login",
+                        title: "user not found",
+                        detail: "user does not exist."
+                    }
+                });
             } else {
                 argon2.verify(userInfo.password, password).then((correct) => {
                     if (correct) {
@@ -101,8 +108,15 @@ const auth = {
         }
 
         Auth.findOne({ email: email }, function (err, userInfo) {
-            if (err) {
-                next(err)
+            if (err ||!userInfo) {
+                return res.status(401).json({
+                    errors: {
+                        status: 401,
+                        source: "/unregister",
+                        title: "Wrong user",
+                        detail: "user does not exist."
+                    }
+                });
             } else {
                 argon2.verify(userInfo.password, password).then((correct) => {
                     if (correct) {

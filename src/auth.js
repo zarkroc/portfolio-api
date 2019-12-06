@@ -85,6 +85,61 @@ const auth = {
         })
     },
 
+    unregister: async function (res, body) {
+        const email = body.email;
+        const password = body.password;
+
+        if (!email || !password) {
+            return res.status(401).json({
+                errors: {
+                    status: 401,
+                    source: "/login",
+                    title: "Email or password missing",
+                    detail: "Email or password missing in request"
+                }
+            });
+        }
+
+        Auth.findOne({ email: email }, function (err, userInfo) {
+            if (err) {
+                next(err)
+            } else {
+                argon2.verify(userInfo.password, password).then((correct) => {
+                    if (correct) {
+                        Auth.findOneAndRemove({ _id: userInfo._id}, function(err) {
+                            if(err)
+                            {
+                                console.log("err")
+                                return res.status(500).json({
+                                    errors: {
+                                        status: 500,
+                                        source: "/unregister",
+                                        title: "DB error",
+                                        detail: err
+                                    }
+                                });
+                            }
+                            return res.status(200).json({
+                                message: "User removed",
+                                user: email,
+                                status: 200
+                            });
+                        });
+                        return res;
+                    }
+                    return res.status(401).json({
+                        errors: {
+                            status: 401,
+                            source: "/unregister",
+                            title: "Wrong password",
+                            detail: "Password is incorrect."
+                        }
+                    });
+                })
+            }
+        })
+    },
+
     checkToken: function (req, res, next) {
         var token = req.headers['x-access-token'];
 

@@ -42,6 +42,7 @@ router.use('/competence', competence);
 router.use('/workHistory', workHistory);
 router.post('/login', (req, res) => auth.login(res, req.body));
 router.post('/register', (req, res) => auth.register(res, req.body));
+router.post('/unregister', (req, res) => auth.unregister(res, req.body));
 
 app.use('/', router);
 

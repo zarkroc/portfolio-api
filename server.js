@@ -28,6 +28,7 @@ mongoose.connect(`mongodb://${mongoHost}:27017/tomas`, {
     console.error("Failed to connect to mongo");
 });
 
+console.log("mongo host: ", mongoHost);
 
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json

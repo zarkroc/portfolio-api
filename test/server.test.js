@@ -11,7 +11,6 @@ after(function() {
     server.stop();
 })
 
-console.log("mongoose ready state:", mongoose.connection.readyState);
 
 
 describe('/', () => {

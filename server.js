@@ -25,6 +25,7 @@ mongoose.connect('mongodb://mongodb:27017/tomas', {
 }).catch(function(e){
     console.error("Failed to connect to mongo");
 });
+console.log("mongoose ready state:", mongoose.connection.readyState);
 
 
 app.use(cors());

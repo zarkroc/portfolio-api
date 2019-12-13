@@ -1,0 +1,15 @@
+version: '3'
+services:
+    mongo:
+        image: mongo
+        container_name: mongo
+        ports:
+            - "27017:27017"
+    app:
+        image: api-perers.org
+        build: .
+        ports:
+            - "1337:1337"
+        links:
+            - mongo
+  

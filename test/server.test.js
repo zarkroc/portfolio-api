@@ -18,7 +18,7 @@ function delay(interval)
 
    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
 }
-
+// wait for DB to be up.
 delay(3000);
 
 

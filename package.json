@@ -1,7 +1,6 @@
 {
   "name": "backend-perers.org",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "mocha",
@@ -27,5 +26,17 @@
     "jest": "^24.9.0",
     "mocha": "^6.2.2",
     "supertest": "^4.0.2"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zarkroc/portfolio-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zarkroc/portfolio-api/issues"
+  },
+  "homepage": "https://github.com/zarkroc/portfolio-api#readme",
+  "description": ""
 }

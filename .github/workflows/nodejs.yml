@@ -4,11 +4,11 @@ on: [push]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
     env:
       JWT_SECRET="longsecretkeytouseonlyfortesttingstuff"
-      MONGO_HOST=mongodb
+      MONGO_HOST="mongodb"
+
+    runs-on: ubuntu-latest
 
     services:
       mongodb:
@@ -18,12 +18,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
-    
+        node-version: [8.x, 10.x, 12.x]
+
     steps:
     - uses: actions/checkout@v1
-    - name: Build using docker-compose
-      #run: docker-compose up -d mongo
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:

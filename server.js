@@ -18,7 +18,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
-mongoose.connect('mongodb://mongodb:27017/tomas', {
+mongoose.connect('mongodb://localhost:27017/tomas', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false

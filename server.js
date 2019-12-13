@@ -8,6 +8,7 @@ const index = require('./routes/index.js');
 const competence = require('./routes/competence.js');
 const workHistory = require('./routes/workHistory.js');
 const auth = require('./src/auth.js');
+require("dotenv").config();
 var mongoose = require('mongoose');
 
 const app = express();
@@ -17,15 +18,15 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
+const mongoHost = process.env.MONGO_HOST;
 
-mongoose.connect('mongodb://localhost:27017/tomas', {
+mongoose.connect(`mongodb://${mongoHost}:27017/tomas`, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
 }).catch(function(e){
     console.error("Failed to connect to mongo");
 });
-console.log("mongoose ready state:", mongoose.connection.readyState);
 
 
 app.use(cors());

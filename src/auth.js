@@ -2,9 +2,9 @@
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 var Auth = require('../models/auth');
-//require("dotenv").config();
+require("dotenv").config();
 
-const jwtSecret = "process.env.JWT_SECRET";
+const jwtSecret = process.env.JWT_SECRET;
 
 const auth = {
     register: async function (res, body) {

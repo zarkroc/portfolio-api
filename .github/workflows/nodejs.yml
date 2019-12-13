@@ -6,6 +6,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET="longsecretkeytouseonlyfortesttingstuff"
+      MONGO_HOST=mongodb
+
+    services:
+      mongodb:
+        image: mongo:3.6.3
+        ports:
+          - 27017:27017
 
     strategy:
       matrix:
@@ -13,19 +22,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: Build using docker-compose
+      #run: docker-compose up -d mongo
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install MongoDB
-      run: |
-        wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | sudo apt-key add -
-        echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
-        sudo apt-get update
-        sudo apt-get install -y mongodb-org
-        sudo apt-get install -y mongodb-org=3.6.14 mongodb-org-server=3.6.14 mongodb-org-shell=3.6.14 mongodb-org-mongos=3.6.14 mongodb-org-tools=3.6.14
-    - name: Start MongoDB
-      run: sudo systemctl start mongod
     - name: npm install, build, and test
       run: |
         npm ci

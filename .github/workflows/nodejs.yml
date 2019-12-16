@@ -32,3 +32,4 @@ jobs:
         CI: true
         JWT_SECRET: longsecretkeytouseonlyfortesttingstuff
         MONGO_HOST: localhost
+        API_KEY: apiKeyForTesting

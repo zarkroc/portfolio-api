@@ -28,8 +28,6 @@ mongoose.connect(`mongodb://${mongoHost}:27017/tomas`, {
     console.error("Failed to connect to mongo");
 });
 
-console.log("mongo host: ", mongoHost);
-
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -39,6 +37,7 @@ if (process.env.NODE_ENV !== 'test') {
     // use morgan to log at command line
     app.use(morgan('combined')); // 'combined' outputs the Apache style LOGs
 }
+app.use(auth.checkApiKEy);
 
 router.use('/', index);
 router.use('/competence', competence);
@@ -81,6 +80,17 @@ function stop() {
     server.close();
     mongoose.disconnect();
 }
+
+process.on('exit', (code) => {
+    server.close();
+    mongoose.disconnect();
+    console.log(`Shutting down with code: ${code}`);
+})
+
+process.on('SIGINT', function (){
+    console.log("Caught interrupt signal")
+    process.exit();
+})
 
 module.exports = server;
 module.exports.stop = stop;

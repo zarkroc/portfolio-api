@@ -7,6 +7,29 @@ require("dotenv").config();
 const jwtSecret = process.env.JWT_SECRET;
 
 const auth = {
+    /*
+    * Verify that the API key is correct.
+    */
+    checkApiKEy: async function(req, res, next) {
+        let clientApiKey = req.headers.api_key;
+        if(!clientApiKey ||clientApiKey === undefined) {
+            return res.status(400).send({
+                status: false,
+                response: "Missing API key"
+            });
+        }
+        let apiKey = process.env.API_KEY;
+
+        if (clientApiKey === apiKey)
+        {
+            next();
+        } else {
+            return res.status(400).send({
+                status: false,
+                response: "Invalid API key"
+        })
+        }
+    },
     register: async function (res, body) {
         const email = body.email;
         const password = body.password;

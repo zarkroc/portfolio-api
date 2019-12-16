@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "nyc --reporter=html --reporter=text --reporter=clover mocha",
     "jest": "jest --config ./jest.config.json --detectOpenHandles",
     "start": "nodemon server.js"
   },
@@ -25,6 +25,7 @@
     "chai-http": "^4.3.0",
     "jest": "^24.9.0",
     "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
     "supertest": "^4.0.2"
   },
   "directories": {

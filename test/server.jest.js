@@ -2,6 +2,8 @@
 // //const jest = require('jest');
 // const server = require('../server.js');
 // const request = require('supertest');
+// //require("dotenv").config();
+// const apiKey = process.env.API_KEY
 
 
 // afterAll(async () => {
@@ -10,15 +12,22 @@
 
 
 // describe('verify /', () => {
-//     it('We get a valid response', async (done) => {
+//     it('We get a missing API key response', async (done) => {
 //         request(server).get('/').then((response) => {
-//             expect(response.statusCode).toBe(200);
-//         expect(response.body.data.about.name).toEqual("Tomas Perers");
-//         expect(response.body.data.about.description).toBeDefined();
-//         expect(response.body.data.about.interest).toBeDefined();
-//         expect(response.body.data.about.location).toBeDefined();
-//         expect(response.body.data.title).toBeDefined();
+//             expect(response.statusCode).toBe(400);
 //         done();
+//         });
+//     });
+// });
+
+// describe('/', () => {
+//     it('should get 200 HAPPY PATH', (done) => {
+//         request(server)
+//         .get("/")
+//         .set({api_key: apiKey})
+//         .end((err, res) => {
+//             expect(res.statusCode).toBe(200);
+//             done();
 //         });
 //     });
 // });

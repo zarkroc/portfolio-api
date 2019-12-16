@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "jest": "jest --detectOpenHandles test/server.jest.js",
+    "jest": "jest --config ./jest.config.json --detectOpenHandles",
     "start": "nodemon server.js"
   },
   "author": "",

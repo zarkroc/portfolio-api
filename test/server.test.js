@@ -3,6 +3,8 @@ process.env.NODE_ENV = 'test';
 const server = require('../server.js');
 const chai = require('chai');
 const chatHttp = require('chai-http');
+require("dotenv").config();
+const apiKey = process.env.API_KEY
 
 chai.should();
 chai.use(chatHttp);
@@ -26,8 +28,40 @@ describe('/', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
         .get("/")
+        .set({api_key: apiKey})
         .end((err, res) => {
             res.should.have.status(200);
+            done();
+        });
+    });
+});
+
+describe('/', () => {
+    it('should get 400 missing API KEY', (done) => {
+        chai.request(server)
+        .get("/")
+        .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.be.an("object");
+            res.body.status.should.equal(false);
+            res.body.response.should.be.a("string");
+            res.body.response.should.equal("Missing API key");
+            done();
+        });
+    });
+});
+
+describe('/', () => {
+    it('should get 400 invalid API KEY', (done) => {
+        chai.request(server)
+        .get("/")
+        .set({api_key: "asdfasdfsa"})
+        .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.be.an("object");
+            res.body.status.should.equal(false);
+            res.body.response.should.be.a("string");
+            res.body.response.should.equal("Invalid API key");
             done();
         });
     });
@@ -37,6 +71,7 @@ describe('/competence', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
         .get("/competence")
+        .set({api_key: apiKey})
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.an("object");
@@ -52,6 +87,7 @@ describe('/workHistory', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
         .get("/workHistory")
+        .set({api_key: apiKey})
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.an("object");
@@ -67,6 +103,7 @@ describe('/login', () => {
     it('should get 401 Email or password missing', (done) => {
         chai.request(server)
         .post("/login")
+        .set({api_key: apiKey})
         .end((err, res) => {
             res.should.have.status(401);
             res.body.errors.detail.should.equal("Email or password missing in request");
@@ -79,6 +116,7 @@ describe('/register', () => {
     it('should get 401 Email or password missing', (done) => {
         chai.request(server)
         .post("/register")
+        .set({api_key: apiKey})
         .end((err, res) => {
             res.should.have.status(401);
             res.body.errors.detail.should.equal("Email or password missing in request");
@@ -100,6 +138,7 @@ describe('Create user and login', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
             .post("/register")
+            .set({api_key: apiKey})
             .send(user)
             .end((err, res) => {
                 res.should.have.status(200)
@@ -113,6 +152,7 @@ describe('Create user and login', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
             .post("/login")
+            .set({api_key: apiKey})
             .send(user)
             .end((err, res) => {
                 res.should.have.status(200)
@@ -127,6 +167,7 @@ describe('Create user and login', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
             .post("/unregister")
+            .set({api_key: apiKey})
             .send(user)
             .end((err, res) => {
                 res.should.have.status(200)
@@ -147,6 +188,7 @@ describe('Unregister user not existing', () => {
         it('should get 401', (done) => {
             chai.request(server)
             .post("/unregister")
+            .set({api_key: apiKey})
             .send(user)
             .end((err, res) => {
                 res.should.have.status(401)

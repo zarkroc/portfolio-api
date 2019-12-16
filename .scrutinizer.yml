@@ -8,10 +8,9 @@ build:
         mongo: 4
     nodes:
         coverage:
-        tests:
-            override:
-            - js-scrutinizer-run
-            - command: npm test
-                coverage:
-                file: coverage/clover.xml
-                format: clover
+            tests:
+                override: [js-scrutinizer-run]
+                - command: npm test
+                    coverage:
+                        file: coverage/clover.xml
+                        sformat: clover

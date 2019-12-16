@@ -5,7 +5,7 @@ node_js:
 
 env:
     JWT_SECRET: RY]ZVMYEa#c=RZ>9@
-    MONGO_HOST: mongodb
+    MONGO_HOST: localhost
     API_KEY: sfh7834noiafjs8dy8
 
 sudo: false

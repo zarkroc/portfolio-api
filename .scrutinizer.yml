@@ -1,3 +1,5 @@
+checks:
+  javascript: true
 build:
     environment:
         variables:
@@ -7,10 +9,12 @@ build:
     services:
         mongo: 4
     nodes:
+      analysis:
         coverage:
             tests:
-                override: [js-scrutinizer-run]
+                override: 
+                  - js-scrutinizer-run
                 - command: npm test
                     coverage:
-                        file: coverage/clover.xml
-                        sformat: clover
+                      file: coverage/clover.xml
+                      format: clover

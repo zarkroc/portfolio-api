@@ -1,1 +1,5 @@
 ![](https://github.com/zarkroc/portfolio-api/workflows/Node%20CI/badge.svg)
+[![Build Status](https://travis-ci.com/zarkroc/portfolio-api.svg?branch=master)](https://travis-ci.com/zarkroc/portfolio-api)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/badges/build.png?b=master)](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/build-status/master)

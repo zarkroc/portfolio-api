@@ -1,9 +1,9 @@
 build:
     environment:
         variables:
-            JWT_SECRET: zY$meS}fgzih]HO|[atZ|+a`i`Yl894lHO9w6a
+            JWT_SECRET: secretfortestonly
             MONGO_HOST: mongo
-            API_KEY: h1pdghqwetrqwui3yhvpjfaeh9348u092jlkafjaskf90u98034hqina
+            API_KEY: secretfortestonly
     services:
         mongo: 4
     nodes:

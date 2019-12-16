@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var schema = new Schema({
+var work = new Schema({
     company: { type: String, required: true },
     description: { type: String, required: true },
     start: { type: String, required: true },
@@ -9,4 +9,4 @@ var schema = new Schema({
     role: { type: String, required: true }
 });
 
-module.exports = mongoose.model('WorkPlace', schema);
+module.exports = mongoose.model('WorkPlace', work);

@@ -11,7 +11,7 @@ build:
         tests:
             override:
             - js-scrutinizer-run
-            - command: npm run pretest && npm run test
+            - command: npm test
                 coverage:
                 file: coverage/clover.xml
                 format: clover

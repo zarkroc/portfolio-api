@@ -1,0 +1,19 @@
+checks:
+  javascript: true
+build:
+environment:
+  variables:
+    JWT_SECRET: secretfortestonly
+    MONGO_HOST: localhost
+    API_KEY: secretfortestonly
+services:
+  mongo: 4
+nodes:
+  coverage:
+    tests:
+      override:
+        - js-scrutinizer-run
+        - command: npm run test
+          coverage:
+            file: coverage/clover.xml
+            format: clover

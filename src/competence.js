@@ -7,18 +7,30 @@ const competence = {
             name: body.name,
             level: body.level,
         })
+        .then(() => {
+            return res.status(200).json({
+                message: "ok"
+            });
+        }).catch(err => {
+            return res.status(500).json({
+                message: err
+            })
+        })
     },
     update: async function (res, body) {
-        Skills.findOne({name: body.name}).then((res, err) => {
+        Skills.findOne({name: body.name}).then((skill, err) => {
             if(err) {
                 return res.status(500).send({
                     status: false,
                     response: "failed to find skill"
                 });
             }
-            res.name = body.name;
-            res.level = body.level
-            res.save();
+            skill.name = body.name;
+            skill.level = body.level
+            skill.save();
+            return res.status(200).json({
+                message: "ok"
+            });
         })
     }
 }

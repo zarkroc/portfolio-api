@@ -10,21 +10,33 @@ const workHistory = {
             stop: body.stop,
             role: body.role
         })
+        .then(() => {
+            return res.status(200).json({
+                message: "ok"
+            });
+        }).catch(err => {
+            return res.status(500).json({
+                message: err
+            })
+        })
     },
     update: async function (res, body) {
-        Work.findOne({company: body.company}).then((res, err) => {
+        Work.findOne({company: body.company}).then((work, err) => {
             if(err) {
                 return res.status(500).send({
                     status: false,
                     response: "failed to find place of work"
                 });
             }
-            res.company = body.company;
-            res.description = body.desc;
-            res.start = body.start;
-            res.stop = body.stop;
-            res.role = body.role
-            res.save();
+            work.company = body.company;
+            work.description = body.desc;
+            work.start = body.start;
+            work.stop = body.stop;
+            work.role = body.role
+            work.save();
+            return res.status(200).json({
+                message: "ok"
+            });
         })
     }
 }

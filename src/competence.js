@@ -17,9 +17,15 @@ const competence = {
             })
         })
     },
-    update: async function (res, body) {
+    update: async function (res, body) {     
+        if(!body.name) {
+            return res.status(500).send({
+                status: false,
+                response: "name or skill missing"
+            });
+        }
         Skills.findOne({name: body.name}).then((skill, err) => {
-            if(err) {
+            if(err || skill === null) {
                 return res.status(500).send({
                     status: false,
                     response: "failed to find skill"

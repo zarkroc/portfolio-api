@@ -39,26 +39,26 @@ before(function() {
     });
 })
 
-after(function() {
-    describe('Unegister', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-            .post("/unregister")
-            .set({
-                api_key: apiKey,
-            })
-            .send(user)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("User removed");
-                res.body.user.should.be.an('string');
-                done();
-            });
-        });
-    })
-    server.stop();
-})
-function delay(interval) 
+// after(function() {
+//     describe('Unegister', () => {
+//         it('should get 200 HAPPY PATH', (done) => {
+//             chai.request(server)
+//             .post("/unregister")
+//             .set({
+//                 api_key: apiKey,
+//             })
+//             .send(user)
+//             .end((err, res) => {
+//                 res.should.have.status(200)
+//                 res.body.message.should.equal("User removed");
+//                 res.body.user.should.be.an('string');
+//                 done();
+//             });
+//         });
+//     })
+//     server.stop();
+// })
+// function delay(interval) 
 {
    return it('should delay', done => 
    {

@@ -229,25 +229,3 @@ describe('Unregister user not existing', () => {
         });
     })
 });
-
-// Need to create about first.
-
-// describe('/', () => {
-//     it('should get 200 HAPPY PATH', (done) => {
-//         chai.request(server)
-//         .get("/")
-//         .end((err, res) => {
-//             res.should.have.status(200);
-//             res.body.should.be.an("object");
-//             res.body.data.should.be.an("object");
-//             res.body.data.title.should.be.a("string");
-//             res.body.data.about.should.be.an("object");
-//             res.body.data.about.name.should.be.a("string");
-//             res.body.data.about.description.should.be.a("string");
-//             res.body.data.about.location.should.be.a("string");
-//             res.body.data.about.interest.should.be.a("string");
-//             res.body.data.msg.should.be.a("string");
-//             done();
-//         });
-//     });
-// });

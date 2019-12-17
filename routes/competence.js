@@ -24,10 +24,10 @@ router.get('/', async function (req, res) {
     res.json(data);
 });
 
-router.post('/add', //(req, res, next) => auth.checkToken(req, res, next),
+router.post('/', //(req, res, next) => auth.checkToken(req, res, next),
 (req, res) => competence.add(res, req.body));
 
-router.put('/add', //(req, res, next) => auth.checkToken(req, res, next),
+router.put('/', //(req, res, next) => auth.checkToken(req, res, next),
 (req, res) => competence.update(res, req.body));
 
 module.exports = router;

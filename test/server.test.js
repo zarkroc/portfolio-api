@@ -23,7 +23,9 @@ function delay(interval)
 // wait for DB to be up.
 delay(3000);
 
-
+/** 
+ * Test that we get correct info from /
+ */
 describe('/', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
@@ -36,6 +38,10 @@ describe('/', () => {
     });
 });
 
+/** 
+ * Test that we get correct info from / 
+ * When missing API key
+ */
 describe('/', () => {
     it('should get 400 missing API KEY', (done) => {
         chai.request(server)
@@ -51,6 +57,10 @@ describe('/', () => {
     });
 });
 
+/** 
+ * Test that we get correct info from /
+ * When using invalid API key
+ */
 describe('/', () => {
     it('should get 400 invalid API KEY', (done) => {
         chai.request(server)
@@ -67,6 +77,9 @@ describe('/', () => {
     });
 });
 
+/** 
+ * Test that we get correct info from /competence
+ */
 describe('/competence', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
@@ -83,6 +96,9 @@ describe('/competence', () => {
     });
 });
 
+/** 
+ * Test that we get correct info from /workHistory
+ */
 describe('/workHistory', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
@@ -99,6 +115,10 @@ describe('/workHistory', () => {
     });
 });
 
+/** 
+ * Test that we get correct info from /login
+ * When missing email and password
+ */
 describe('/login', () => {
     it('should get 401 Email or password missing', (done) => {
         chai.request(server)
@@ -112,6 +132,10 @@ describe('/login', () => {
     });
 });
 
+/** 
+ * Test that we get correct info from /register
+ * When missing email and password
+ */
 describe('/register', () => {
     it('should get 401 Email or password missing', (done) => {
         chai.request(server)
@@ -125,6 +149,10 @@ describe('/register', () => {
     });
 });
 
+/** 
+ * Test that we can register a user
+ * Login and remove user
+ */
 describe('Create user and login', () => {
     let user = {
         email: "test@example.com",
@@ -162,7 +190,6 @@ describe('Create user and login', () => {
             });
         });
     })
-    
     describe('Unegister', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
@@ -179,6 +206,9 @@ describe('Create user and login', () => {
     })
 });
 
+/** 
+ * Test that we get an error when removing a user that doesn't exist
+ */
 describe('Unregister user not existing', () => {
     let user = {
         email: "test@example.com",

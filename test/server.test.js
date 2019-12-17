@@ -158,10 +158,6 @@ describe('Create user and login', () => {
         email: "test@example.com",
         password: "testtest",
     };
-    let falseUser = {
-        email: "test@example.com",
-        password: "testtest12313213",
-    };
     describe('Register', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)

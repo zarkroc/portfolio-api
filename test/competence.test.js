@@ -59,15 +59,15 @@ before(function() {
 //     server.stop();
 // })
 // function delay(interval) 
-{
-   return it('should delay', done => 
-   {
-      setTimeout(() => done(), interval);
+// {
+//    return it('should delay', done => 
+//    {
+//       setTimeout(() => done(), interval);
 
-   }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
-}
-// wait for DB to be up.
-delay(3000);
+//    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
+// }
+// // wait for DB to be up.
+// delay(3000);
 
 
 /** 

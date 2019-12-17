@@ -102,7 +102,7 @@ describe('/competence', () => {
 describe('/workHistory', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-        .get("/workHistory")
+        .get("/workhistory")
         .set({api_key: apiKey})
         .end((err, res) => {
             res.should.have.status(200);

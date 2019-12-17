@@ -9,7 +9,7 @@ const apiKey = process.env.API_KEY
 chai.should();
 chai.use(chatHttp);
 
-after(function() {
+after(function () {
     server.stop();
 })
 // function delay(interval) 
@@ -29,12 +29,12 @@ after(function() {
 describe('/', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-        .get("/")
-        .set({api_key: apiKey})
-        .end((err, res) => {
-            res.should.have.status(200);
-            done();
-        });
+            .get("/")
+            .set({ api_key: apiKey })
+            .end((err, res) => {
+                res.should.have.status(200);
+                done();
+            });
     });
 });
 
@@ -45,15 +45,15 @@ describe('/', () => {
 describe('/', () => {
     it('should get 400 missing API KEY', (done) => {
         chai.request(server)
-        .get("/")
-        .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.an("object");
-            res.body.status.should.equal(false);
-            res.body.response.should.be.a("string");
-            res.body.response.should.equal("Missing API key");
-            done();
-        });
+            .get("/")
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.should.be.an("object");
+                res.body.status.should.equal(false);
+                res.body.response.should.be.a("string");
+                res.body.response.should.equal("Missing API key");
+                done();
+            });
     });
 });
 
@@ -64,16 +64,16 @@ describe('/', () => {
 describe('/', () => {
     it('should get 400 invalid API KEY', (done) => {
         chai.request(server)
-        .get("/")
-        .set({api_key: "asdfasdfsa"})
-        .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.be.an("object");
-            res.body.status.should.equal(false);
-            res.body.response.should.be.a("string");
-            res.body.response.should.equal("Invalid API key");
-            done();
-        });
+            .get("/")
+            .set({ api_key: "asdfasdfsa" })
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.should.be.an("object");
+                res.body.status.should.equal(false);
+                res.body.response.should.be.a("string");
+                res.body.response.should.equal("Invalid API key");
+                done();
+            });
     });
 });
 
@@ -83,16 +83,16 @@ describe('/', () => {
 describe('/competence', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-        .get("/competence")
-        .set({api_key: apiKey})
-        .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.be.an("object");
-            res.body.data.should.be.an("object");
-            res.body.data.title.should.be.a("string");
-            res.body.data.skills.should.be.a("array");
-            done();
-        });
+            .get("/competence")
+            .set({ api_key: apiKey })
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.an("object");
+                res.body.data.should.be.an("object");
+                res.body.data.title.should.be.a("string");
+                res.body.data.skills.should.be.a("array");
+                done();
+            });
     });
 });
 
@@ -102,16 +102,16 @@ describe('/competence', () => {
 describe('/workHistory', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-        .get("/workhistory")
-        .set({api_key: apiKey})
-        .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.be.an("object");
-            res.body.data.should.be.an("object");
-            res.body.data.title.should.be.a("string");
-            res.body.data.workPlaces.should.be.a("array");
-            done();
-        });
+            .get("/workhistory")
+            .set({ api_key: apiKey })
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.an("object");
+                res.body.data.should.be.an("object");
+                res.body.data.title.should.be.a("string");
+                res.body.data.workPlaces.should.be.a("array");
+                done();
+            });
     });
 });
 
@@ -122,13 +122,13 @@ describe('/workHistory', () => {
 describe('/login', () => {
     it('should get 401 Email or password missing', (done) => {
         chai.request(server)
-        .post("/login")
-        .set({api_key: apiKey})
-        .end((err, res) => {
-            res.should.have.status(401);
-            res.body.errors.detail.should.equal("Email or password missing in request");
-            done();
-        });
+            .post("/login")
+            .set({ api_key: apiKey })
+            .end((err, res) => {
+                res.should.have.status(401);
+                res.body.errors.detail.should.equal("Email or password missing in request");
+                done();
+            });
     });
 });
 
@@ -139,13 +139,13 @@ describe('/login', () => {
 describe('/register', () => {
     it('should get 401 Email or password missing', (done) => {
         chai.request(server)
-        .post("/register")
-        .set({api_key: apiKey})
-        .end((err, res) => {
-            res.should.have.status(401);
-            res.body.errors.detail.should.equal("Email or password missing in request");
-            done();
-        });
+            .post("/register")
+            .set({ api_key: apiKey })
+            .end((err, res) => {
+                res.should.have.status(401);
+                res.body.errors.detail.should.equal("Email or password missing in request");
+                done();
+            });
     });
 });
 
@@ -161,43 +161,47 @@ describe('Create user and login', () => {
     describe('Register', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
-            .post("/register")
-            .set({api_key: apiKey})
-            .send(user)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("ok");
-                res.body.token.should.be.an('string');
-                done();
-            });
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    user.token = res.body.token;
+                    done();
+                });
         });
     })
     describe('Login', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
-            .post("/login")
-            .set({api_key: apiKey})
-            .send(user)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
-                res.body.token.should.be.an('string');
-                done();
-            });
+                .post("/login")
+                .set({ api_key: apiKey })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("User logged in");
+                    res.body.token.should.be.an('string');
+                    done();
+                });
         });
     })
     describe('Unegister', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
-            .post("/unregister")
-            .set({api_key: apiKey})
-            .send(user)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("User removed");
-                res.body.user.should.be.an('string');
-                done();
-            });
+                .post("/unregister")
+                .set({
+                    api_key: apiKey,
+                    token: user.token,
+                })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("User removed");
+                    res.body.user.should.be.an('string');
+                    done();
+                });
         });
     })
 });
@@ -213,15 +217,15 @@ describe('Unregister user not existing', () => {
     describe('Unegister', () => {
         it('should get 401', (done) => {
             chai.request(server)
-            .post("/unregister")
-            .set({api_key: apiKey})
-            .send(user)
-            .end((err, res) => {
-                res.should.have.status(401)
-                res.body.should.be.an("object")
-                res.body.errors.should.be.an("object")
-                done();
-            });
+                .post("/unregister")
+                .set({ api_key: apiKey })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(401)
+                    res.body.should.be.an("object")
+                    res.body.errors.should.be.an("object")
+                    done();
+                });
         });
     })
 });

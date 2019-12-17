@@ -22,9 +22,10 @@ const about = {
     update: async function (res, body) {
         let user = await About.findOne({ name: body.name }).then((res, err) => {
             if (err) {
-                return null;
+                return res.status(500).json({
+                    message: err
+                });
             }
-            console.log("i find", res)
             return res;
         });
         if (user) {
@@ -40,15 +41,14 @@ const about = {
             }).catch(err => {
                 return res.status(500).json({
                     message: err
-                })
+                });
             })
             
         } else {
             return res.status(500).json({
                 message: "fail"
-            })
+            });
         }
-
     }
 }
 

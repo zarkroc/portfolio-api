@@ -3,9 +3,6 @@ var Work = require('../models/work');
 
 const workHistory = {
     add: async function (res, body) {
-        console.log('====================================');
-        console.log(body);
-        console.log('====================================');
         Work.create({
             company: body.company,
             description: body.desc,
@@ -18,10 +15,7 @@ const workHistory = {
                     message: "ok"
                 });
             }).catch(err => {
-                console.log('====================================');
-                console.log(err);
-                console.log('====================================');
-                return res.status(500).json({
+                 return res.status(500).json({
                     message: err
                 })
             })

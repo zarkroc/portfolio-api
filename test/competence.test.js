@@ -13,13 +13,15 @@ chai.use(chatHttp);
 let user = {
     email: "test@skill.com",
     password: "testtest",
-    token: ""
 };
 
 let skill = {
     name: "test",
     level: 1
 };
+
+var token;
+
 
 before(function() {
     describe('Register', () => {
@@ -32,42 +34,46 @@ before(function() {
                 res.should.have.status(200)
                 res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
-                user.token = res.body.token;
+                token = res.body.token;
                 done();
             });
         });
     });
 })
 
-// after(function() {
-//     describe('Unegister', () => {
-//         it('should get 200 HAPPY PATH', (done) => {
-//             chai.request(server)
-//             .post("/unregister")
-//             .set({
-//                 api_key: apiKey,
-//             })
-//             .send(user)
-//             .end((err, res) => {
-//                 res.should.have.status(200)
-//                 res.body.message.should.equal("User removed");
-//                 res.body.user.should.be.an('string');
-//                 done();
-//             });
-//         });
-//     })
-//     server.stop();
-// })
-// function delay(interval) 
-// {
-//    return it('should delay', done => 
-//    {
-//       setTimeout(() => done(), interval);
-
-//    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
-// }
-// // wait for DB to be up.
-// delay(3000);
+after(function () {
+    describe('Unegister', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/login")
+                .set({ api_key: apiKey })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("User logged in");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    done();
+                });
+        });
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/unregister")
+                .set({
+                    api_key: apiKey,
+                    "x-access-token": token,
+                })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("User removed");
+                    res.body.user.should.be.an('string');
+                    done();
+                });
+        });
+    })
+    server.stop();
+})
 
 
 /** 
@@ -76,10 +82,23 @@ before(function() {
 describe('Create skill', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
         .post("/competence")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send(skill)
         .end((err, res) => {
@@ -94,12 +113,25 @@ describe('Create skill', () => {
  * Test that we get an error.
  */
 describe('Error Create skill', () => {
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
     it('should get 500', (done) => {
         chai.request(server)
         .post("/competence")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             level: 1,
@@ -117,12 +149,25 @@ describe('Error Create skill', () => {
  * Test that we can update an skill.
  */
 describe('Update skill', () => {
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
     it('should get 200', (done) => {
         chai.request(server)
         .put("/competence")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send(
             skill
@@ -139,12 +184,25 @@ describe('Update skill', () => {
  * Test that we get an error when updating an skill.
  */
 describe('fail updating skill', () => {
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
     it('should get 500', (done) => {
         chai.request(server)
         .put("/competence")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             level: "Interst",
@@ -159,7 +217,7 @@ describe('fail updating skill', () => {
         .put("/competence")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             level: 2
@@ -174,7 +232,7 @@ describe('fail updating skill', () => {
         .put("/competence")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             name: "Interst",

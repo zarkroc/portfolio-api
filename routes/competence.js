@@ -1,6 +1,7 @@
 'use strict';
 var Skills = require('../models/skills');
 const competence = require('../src/competence');
+const auth = require('../src/auth')
 
 
 var express = require('express');
@@ -24,10 +25,10 @@ router.get('/', async function (req, res) {
     res.json(data);
 });
 
-router.post('/', //(req, res, next) => auth.checkToken(req, res, next),
+router.post('/', (req, res, next) => auth.checkToken(req, res, next),
 (req, res) => competence.add(res, req.body));
 
-router.put('/', //(req, res, next) => auth.checkToken(req, res, next),
+router.put('/', (req, res, next) => auth.checkToken(req, res, next),
 (req, res) => competence.update(res, req.body));
 
 module.exports = router;

@@ -13,7 +13,6 @@ chai.use(chatHttp);
 let user = {
     email: "test@work.com",
     password: "testtest",
-    token: ""
 };
 
 let work = {
@@ -23,6 +22,7 @@ let work = {
     stop: "date",
     role: "role"
 };
+var token;
 
 before(function() {
     describe('Register', () => {
@@ -35,42 +35,46 @@ before(function() {
                 res.should.have.status(200)
                 res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
-                user.token = res.body.token;
+                token = res.body.token;
                 done();
             });
         });
     });
 })
 
-after(function() {
+after(function () {
     describe('Unegister', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
-            .post("/unregister")
-            .set({
-                api_key: apiKey,
-            })
-            .send(user)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("User removed");
-                res.body.user.should.be.an('string');
-                done();
-            });
+                .post("/login")
+                .set({ api_key: apiKey })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("User logged in");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    done();
+                });
+        });
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/unregister")
+                .set({
+                    api_key: apiKey,
+                    "x-access-token": token,
+                })
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("User removed");
+                    res.body.user.should.be.an('string');
+                    done();
+                });
         });
     })
     server.stop();
 })
-// function delay(interval) 
-// {
-//    return it('should delay', done => 
-//    {
-//       setTimeout(() => done(), interval);
-
-//    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
-// }
-// // wait for DB to be up.
-// delay(3000);
 
 
 /** 
@@ -79,10 +83,23 @@ after(function() {
 describe('Create work', () => {
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
         .post("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send(work)
         .end((err, res) => {
@@ -97,12 +114,25 @@ describe('Create work', () => {
  * Test that we get an error.
  */
 describe('Error Create work', () => {
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
     it('should get 500', (done) => {
         chai.request(server)
         .post("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             desc: "desc",
@@ -120,7 +150,7 @@ describe('Error Create work', () => {
         .post("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             company: "company",
@@ -135,7 +165,7 @@ describe('Error Create work', () => {
         .post("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             company: "company",
@@ -153,7 +183,7 @@ describe('Error Create work', () => {
         .post("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             company: "company",
@@ -174,12 +204,25 @@ describe('Error Create work', () => {
  * Test that we can update an work.
  */
 describe('Update work', () => {
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
     it('should get 200', (done) => {
         chai.request(server)
         .put("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             company: "company",
@@ -200,12 +243,25 @@ describe('Update work', () => {
  * Test that we get an error when updating an work.
  */
 describe('fail updating work', () => {
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/login")
+            .set({ api_key: apiKey })
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User logged in");
+                res.body.token.should.be.an('string');
+                token = res.body.token;
+                done();
+            });
+    });
     it('should get 500', (done) => {
         chai.request(server)
         .put("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             desc: "desc",
@@ -223,7 +279,7 @@ describe('fail updating work', () => {
         .put("/workhistory")
         .set({
             api_key: apiKey,
-            token: user.token,
+            "x-access-token": token,
         })
         .send({
             company: "nothing",

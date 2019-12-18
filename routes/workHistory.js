@@ -1,6 +1,7 @@
 'use strict';
 const Work = require('../models/work');
 const workHistory = require('../src/workHistory');
+const auth = require('../src/auth')
 
 
 var express = require('express');
@@ -20,10 +21,10 @@ router.get('/', async function (req, res) {
     res.json(data);
 });
 
-router.post('/', //(req, res, next) => auth.checkToken(req, res, next),
+router.post('/', (req, res, next) => auth.checkToken(req, res, next),
 (req, res) => workHistory.add(res, req.body));
 
-router.put('/', //(req, res, next) => auth.checkToken(req, res, next),
+router.put('/', (req, res, next) => auth.checkToken(req, res, next),
 (req, res) => workHistory.update(res, req.body));
 
 module.exports = router;

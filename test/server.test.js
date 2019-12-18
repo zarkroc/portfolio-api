@@ -168,7 +168,6 @@ describe('Create user and login', () => {
                     res.should.have.status(200)
                     res.body.message.should.equal("ok");
                     res.body.token.should.be.an('string');
-                    user.token = res.body.token;
                     done();
                 });
         });
@@ -183,6 +182,7 @@ describe('Create user and login', () => {
                     res.should.have.status(200)
                     res.body.message.should.equal("User logged in");
                     res.body.token.should.be.an('string');
+                    token = res.body.token;
                     done();
                 });
         });
@@ -193,7 +193,7 @@ describe('Create user and login', () => {
                 .post("/unregister")
                 .set({
                     api_key: apiKey,
-                    token: user.token,
+                    "x-access-token": token,
                 })
                 .send(user)
                 .end((err, res) => {

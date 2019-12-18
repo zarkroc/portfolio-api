@@ -24,7 +24,7 @@ mongoose.connect(`mongodb://${mongoHost}:27017/tomas`, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
-}).catch(function(e){
+}).catch(function (e) {
     console.error("Failed to connect to mongo");
 });
 
@@ -44,7 +44,8 @@ router.use('/competence', competence);
 router.use('/workhistory', workHistory);
 router.post('/login', (req, res) => auth.login(res, req.body));
 router.post('/register', (req, res) => auth.register(res, req.body));
-router.post('/unregister', (req, res) => auth.unregister(res, req.body));
+router.post('/unregister', (req, res, next) => auth.checkToken(req, res, next),
+    (req, res) => auth.unregister(res, req.body));
 
 app.use('/', router);
 
@@ -87,7 +88,7 @@ process.on('exit', (code) => {
     console.log(`Shutting down with code: ${code}`);
 })
 
-process.on('SIGINT', function (){
+process.on('SIGINT', function () {
     console.log("Caught interrupt signal")
     process.exit();
 })

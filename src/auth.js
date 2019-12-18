@@ -10,9 +10,9 @@ const auth = {
     /*
     * Verify that the API key is correct.
     */
-    checkApiKEy: async function(req, res, next) {
+    checkApiKEy: async function (req, res, next) {
         let clientApiKey = req.headers.api_key;
-        if(!clientApiKey ||clientApiKey === undefined) {
+        if (!clientApiKey || clientApiKey === undefined) {
             return res.status(400).send({
                 status: false,
                 response: "Missing API key"
@@ -20,14 +20,13 @@ const auth = {
         }
         let apiKey = process.env.API_KEY;
 
-        if (clientApiKey === apiKey)
-        {
+        if (clientApiKey === apiKey) {
             next();
         } else {
             return res.status(400).send({
                 status: false,
                 response: "Invalid API key"
-        })
+            })
         }
     },
     register: async function (res, body) {
@@ -80,7 +79,7 @@ const auth = {
         }
 
         Auth.findOne({ email: email }, function (err, userInfo) {
-            if (err ||!userInfo) {
+            if (err || !userInfo) {
                 return res.status(401).json({
                     errors: {
                         status: 401,
@@ -131,7 +130,7 @@ const auth = {
         }
 
         Auth.findOne({ email: email }, function (err, userInfo) {
-            if (err ||!userInfo) {
+            if (err || !userInfo) {
                 return res.status(401).json({
                     errors: {
                         status: 401,
@@ -143,9 +142,8 @@ const auth = {
             } else {
                 argon2.verify(userInfo.password, password).then((correct) => {
                     if (correct) {
-                        Auth.findOneAndRemove({ _id: userInfo._id}, function(err) {
-                            if(err)
-                            {
+                        Auth.findOneAndRemove({ _id: userInfo._id }, function (err) {
+                            if (err) {
                                 console.log("err")
                                 return res.status(500).json({
                                     errors: {

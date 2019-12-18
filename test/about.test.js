@@ -13,7 +13,6 @@ chai.use(chatHttp);
 let user = {
     email: "test@about.com",
     password: "testtest",
-    token: ""
 };
 
 let about = {
@@ -22,6 +21,7 @@ let about = {
     interest: "Interst",
     name: "testname"
 };
+
 var token;
 
 before(function () {
@@ -35,7 +35,7 @@ before(function () {
                     res.should.have.status(200)
                     res.body.message.should.equal("ok");
                     res.body.token.should.be.an('string');
-                    user.token = res.body.token;
+                    token = res.body.token;
                     done();
                 });
         });
@@ -61,16 +61,6 @@ after(function () {
     })
     server.stop();
 })
-// function delay(interval) 
-// {
-//    return it('should delay', done => 
-//    {
-//       setTimeout(() => done(), interval);
-
-//    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
-// }
-// // wait for DB to be up.
-// delay(3000);
 
 
 /** 
@@ -91,9 +81,6 @@ describe('Create about', () => {
             });
     });
     it('should get 200 HAPPY PATH', (done) => {
-        console.log('====================================');
-        console.log(token);
-        console.log('====================================');
         chai.request(server)
             .post("/")
             .set({

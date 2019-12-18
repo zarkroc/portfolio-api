@@ -42,6 +42,17 @@ before(function() {
     });
 })
 
+function delay(interval) 
+{
+   return it('should delay', done => 
+   {
+      setTimeout(() => done(), interval);
+
+   }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
+}
+// wait for DB to be up.
+delay(3000);
+
 after(function () {
     describe('Unegister', () => {
         it('should get 200 HAPPY PATH', (done) => {

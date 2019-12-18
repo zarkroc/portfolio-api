@@ -218,7 +218,10 @@ describe('Unregister user not existing', () => {
         it('should get 401', (done) => {
             chai.request(server)
                 .post("/unregister")
-                .set({ api_key: apiKey })
+                .set({ 
+                    api_key: apiKey,
+                    "x-access-token": "uyguy",
+                })
                 .send(user)
                 .end((err, res) => {
                     res.should.have.status(401)

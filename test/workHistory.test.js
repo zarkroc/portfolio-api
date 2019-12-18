@@ -58,7 +58,9 @@ after(function () {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
                 .post("/login")
-                .set({ api_key: apiKey })
+                .set({ 
+                    api_key: apiKey 
+                })
                 .send(user)
                 .end((err, res) => {
                     res.should.have.status(200)

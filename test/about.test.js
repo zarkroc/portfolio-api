@@ -106,6 +106,9 @@ describe('Create about', () => {
             });
     });
     it('should get 200 HAPPY PATH', (done) => {
+        console.log('====================================');
+        console.log(token);
+        console.log('====================================');
         chai.request(server)
             .post("/")
             .set({

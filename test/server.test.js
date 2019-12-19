@@ -215,7 +215,7 @@ describe('Unregister user not existing', () => {
         password: "testtest",
     };
     describe('Unegister', () => {
-        it('should get 401', (done) => {
+        it('should get 500', (done) => {
             chai.request(server)
                 .post("/unregister")
                 .set({ 
@@ -224,7 +224,7 @@ describe('Unregister user not existing', () => {
                 })
                 .send(user)
                 .end((err, res) => {
-                    res.should.have.status(401)
+                    res.should.have.status(500)
                     res.body.should.be.an("object")
                     res.body.errors.should.be.an("object")
                     done();

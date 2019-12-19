@@ -141,6 +141,9 @@ describe('Error Create about', () => {
                 done();
             });
     });
+    console.log('====================================');
+    console.log(token);
+    console.log('====================================');
     it('should get 500', (done) => {
         chai.request(server)
             .post("/")

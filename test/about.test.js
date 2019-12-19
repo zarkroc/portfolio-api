@@ -10,7 +10,7 @@ chai.should();
 chai.use(chatHttp);
 
 // Users to use during test.
-let user = {
+let aboutUser = {
     email: "test@about.com",
     password: "testtest",
 };
@@ -30,7 +30,7 @@ before(function () {
             chai.request(server)
                 .post("/register")
                 .set({ api_key: apiKey })
-                .send(user)
+                .send(aboutUser)
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.message.should.equal("ok");
@@ -59,7 +59,7 @@ after(function () {
             chai.request(server)
                 .post("/login")
                 .set({ api_key: apiKey })
-                .send(user)
+                .send(aboutUser)
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.message.should.equal("User logged in");
@@ -75,7 +75,7 @@ after(function () {
                     api_key: apiKey,
                     "x-access-token": token,
                 })
-                .send(user)
+                .send(aboutUser)
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.message.should.equal("User removed");
@@ -96,7 +96,7 @@ describe('Create about', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");
@@ -135,7 +135,7 @@ describe('Error Create about', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");
@@ -227,7 +227,7 @@ describe('Update about', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");
@@ -265,7 +265,7 @@ describe('fail updating about', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");

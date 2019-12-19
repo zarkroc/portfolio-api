@@ -10,7 +10,7 @@ chai.should();
 chai.use(chatHttp);
 
 // Users to use during test.
-let user = {
+let workUser = {
     email: "test@work.com",
     password: "testtest",
 };
@@ -30,7 +30,7 @@ before(function() {
             chai.request(server)
             .post("/register")
             .set({api_key: apiKey})
-            .send(user)
+            .send(workUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("ok");
@@ -61,7 +61,7 @@ after(function () {
                 .set({ 
                     api_key: apiKey 
                 })
-                .send(user)
+                .send(workUser)
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.message.should.equal("User logged in");
@@ -77,7 +77,7 @@ after(function () {
                     api_key: apiKey,
                     "x-access-token": token,
                 })
-                .send(user)
+                .send(workUser)
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.message.should.equal("User removed");
@@ -98,7 +98,7 @@ describe('Create work', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(workUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");
@@ -131,7 +131,7 @@ describe('Error Create work', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(workUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");
@@ -221,7 +221,7 @@ describe('Update work', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(workUser)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");
@@ -260,7 +260,7 @@ describe('fail updating work', () => {
         chai.request(server)
             .post("/login")
             .set({ api_key: apiKey })
-            .send(user)
+            .send(workUser)
             .end((err, res) => {
                 console.log('====================================');
                 console.log("what am I doing here");

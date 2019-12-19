@@ -176,7 +176,7 @@ const auth = {
     },
 
     checkToken: function (req, res, next) {
-        console.log('====================================');
+        console.log('============== Check Token ======================');
         console.log(req.headers);
         console.log('====================================');
         var token = req.headers['x-access-token'];

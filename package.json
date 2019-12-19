@@ -5,6 +5,7 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text --reporter=clover mocha",
     "jest": "jest --config ./jest.config.json --detectOpenHandles",
+    "mocha": "mocha",
     "start": "nodemon server.js"
   },
   "author": "",

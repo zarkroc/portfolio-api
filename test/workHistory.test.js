@@ -262,10 +262,17 @@ describe('fail updating work', () => {
             .set({ api_key: apiKey })
             .send(user)
             .end((err, res) => {
+                console.log('====================================');
+                console.log("what am I doing here");
+                console.log(res.body)
+                console.log('====================================');
                 res.should.have.status(200)
                 res.body.message.should.equal("User logged in");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                console.log('====================================');
+                console.log(token);
+                console.log('====================================');
                 done();
             });
     });
@@ -288,6 +295,8 @@ describe('fail updating work', () => {
         });
     });
     it('should get 500', (done) => {
+        console.log(token);
+        
         chai.request(server)
         .put("/workhistory")
         .set({

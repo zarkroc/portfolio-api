@@ -12,4 +12,3 @@ services:
             - "1337:1337"
         links:
             - mongo
-  

@@ -102,6 +102,9 @@ describe('Create about', () => {
                 res.body.message.should.equal("User logged in");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                console.log('Login ====================================');
+                console.log(token);
+                console.log('====================================');
                 done();
             });
     });
@@ -138,6 +141,9 @@ describe('Error Create about', () => {
                 res.body.message.should.equal("User logged in");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                console.log('====================================');
+                console.log(token);
+                console.log('====================================');
                 done();
             });
     });

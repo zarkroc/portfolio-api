@@ -36,6 +36,7 @@ before(function () {
                     res.body.message.should.equal("ok");
                     res.body.token.should.be.an('string');
                     token = res.body.token;
+                    delay(3000);
                     done();
                 });
         });
@@ -51,7 +52,7 @@ function delay(interval)
    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
 }
 // wait for DB to be up.
-delay(3000);
+
 
 after(function () {
     describe('Unegister', () => {

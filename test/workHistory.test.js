@@ -36,6 +36,8 @@ before(function() {
                 res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                // wait for DB to be up.
+                delay(3000);
                 done();
             });
         });

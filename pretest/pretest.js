@@ -3,10 +3,6 @@ require("dotenv").config();
 var mongoose = require('mongoose');
 
 const argon2 = require('argon2');
-const jwt = require('jsonwebtoken');
-const jwtSecret = process.env.JWT_SECRET;
-
-
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -53,8 +49,7 @@ async function createUser() {
     }).catch(err => {
         console.log(err);;
     })
-    mongoose.disconnect();
 }
 
 createUser();
-
+mongoose.disconnect();

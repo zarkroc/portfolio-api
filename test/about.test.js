@@ -37,6 +37,9 @@ before(function () {
                     res.body.token.should.be.an('string');
                     token = res.body.token;
                     delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
                     done();
                 });
         });

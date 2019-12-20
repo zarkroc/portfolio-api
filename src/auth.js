@@ -68,6 +68,9 @@ const auth = {
         const password = body.password;
         console.log('============== LOGIN ======================');
         console.log(body);
+        console.log(Auth.find().exec(function(err,res) {
+            console.log("users", res);})
+        );
         console.log('============== LOGIN ======================');
 
         if (!email || !password) {

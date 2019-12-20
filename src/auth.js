@@ -66,6 +66,9 @@ const auth = {
     login: async function (res, body) {
         const email = body.email;
         const password = body.password;
+        console.log('============== LOGIN ======================');
+        console.log(body);
+        console.log('============== LOGIN ======================');
 
         if (!email || !password) {
             return res.status(401).json({
@@ -80,6 +83,9 @@ const auth = {
 
         Auth.findOne({ email: email }, function (err, userInfo) {
             if (err || !userInfo) {
+                console.log('====================================');
+                console.log("error no user found: ", err);
+                console.log('====================================');
                 return res.status(401).json({
                     errors: {
                         status: 401,

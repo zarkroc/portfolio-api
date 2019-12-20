@@ -46,13 +46,11 @@ before(function () {
     });
 })
 
-function delay(interval) 
-{
-   return it('should delay', done => 
-   {
-      setTimeout(() => done(), interval);
+function delay(interval) {
+    return it('should delay', done => {
+        setTimeout(() => done(), interval);
 
-   }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
+    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
 }
 // wait for DB to be up.
 
@@ -96,45 +94,24 @@ after(function () {
  * Test that we can create an about.
  */
 describe('Create about', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(aboutUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
-                console.log('Login ====================================');
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
                 console.log(token);
-                console.log('====================================');
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
     it('should get 200 HAPPY PATH', (done) => {
-        console.log('====================================');
-        console.log(token);
-        console.log('====================================');
         chai.request(server)
             .post("/")
             .set({
@@ -148,50 +125,44 @@ describe('Create about', () => {
                 done();
             });
     });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(aboutUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
+    });
 });
 
 /** 
  * Test that we get an error.
  */
 describe('Error Create about', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(aboutUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
-                console.log('====================================');
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
                 console.log(token);
-                console.log('====================================');
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
-    console.log('====================================');
-    console.log(token);
-    console.log('====================================');
     it('should get 500', (done) => {
         chai.request(server)
             .post("/")
@@ -257,6 +228,21 @@ describe('Error Create about', () => {
                 done();
             });
     });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(aboutUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
+    });
 });
 
 
@@ -265,35 +251,20 @@ describe('Error Create about', () => {
  * Test that we can update an about.
  */
 describe('Update about', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(aboutUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
+                console.log(token);
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
@@ -316,41 +287,41 @@ describe('Update about', () => {
                 done();
             });
     });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(aboutUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
+    });
 });
 
 /** 
  * Test that we get an error when updating an about.
  */
 describe('fail updating about', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(aboutUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(aboutUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
+                console.log(token);
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
@@ -381,6 +352,21 @@ describe('fail updating about', () => {
             })
             .end((err, res) => {
                 res.should.have.status(500)
+                done();
+            });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(aboutUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
                 done();
             });
     });

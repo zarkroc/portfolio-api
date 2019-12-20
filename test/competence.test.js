@@ -23,33 +23,31 @@ let skill = {
 var token;
 
 
-before(function() {
+before(function () {
     describe('Register', () => {
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
-            .post("/register")
-            .set({api_key: apiKey})
-            .send(skillUser)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("ok");
-                res.body.token.should.be.an('string');
-                token = res.body.token;
-                // wait for DB to be up.
-                delay(3000);
-                done();
-            });
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(skillUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    // wait for DB to be up.
+                    delay(3000);
+                    done();
+                });
         });
     });
 })
 
-function delay(interval) 
-{
-   return it('should delay', done => 
-   {
-      setTimeout(() => done(), interval);
+function delay(interval) {
+    return it('should delay', done => {
+        setTimeout(() => done(), interval);
 
-   }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
+    }).timeout(interval + 100) // The extra 100ms should guarantee the test will not fail due to exceeded timeout
 }
 
 
@@ -111,51 +109,51 @@ after(function () {
  * Test that we can create an skill.
  */
 describe('Create skill', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(skillUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(skillUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
+                console.log(token);
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-        .post("/competence")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send(skill)
-        .end((err, res) => {
-            res.should.have.status(200)
-            res.body.message.should.equal("ok");
-            done();
-        });
+            .post("/competence")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(skill)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("ok");
+                done();
+            });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(skillUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
     });
 });
 
@@ -163,52 +161,52 @@ describe('Create skill', () => {
  * Test that we get an error.
  */
 describe('Error Create skill', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(skillUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(skillUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
+                console.log(token);
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
     it('should get 500', (done) => {
         chai.request(server)
-        .post("/competence")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            level: 1,
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
+            .post("/competence")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send({
+                level: 1,
+            })
+            .end((err, res) => {
+                res.should.have.status(500)
+                done();
+            });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(skillUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
     });
 });
 
@@ -218,53 +216,53 @@ describe('Error Create skill', () => {
  * Test that we can update an skill.
  */
 describe('Update skill', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(skillUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(skillUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
+                console.log(token);
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
     it('should get 200', (done) => {
         chai.request(server)
-        .put("/competence")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send(
-            skill
-        )
-        .end((err, res) => {
-            res.should.have.status(200)
-            res.body.message.should.equal("ok");
-            done();
-        });
+            .put("/competence")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(
+                skill
+            )
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("ok");
+                done();
+            });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(skillUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
     });
 });
 
@@ -272,81 +270,81 @@ describe('Update skill', () => {
  * Test that we get an error when updating an skill.
  */
 describe('fail updating skill', () => {
-    describe('Register', () => {
-        it('should get 200 HAPPY PATH', (done) => {
-            chai.request(server)
-                .post("/register")
-                .set({ api_key: apiKey })
-                .send(skillUser)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.message.should.equal("ok");
-                    res.body.token.should.be.an('string');
-                    token = res.body.token;
-                    delay(3000);
-                    console.log("REGISTER REGISTER REGISTER");
-                    console.log(token);
-                    console.log("REGISTER REGISTER REGISTER");
-                    done();
-                });
-        });
-    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
+            .post("/register")
             .set({ api_key: apiKey })
             .send(skillUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
+                res.body.message.should.equal("ok");
                 res.body.token.should.be.an('string');
                 token = res.body.token;
+                delay(3000);
+                console.log("REGISTER REGISTER REGISTER");
+                console.log(token);
+                console.log("REGISTER REGISTER REGISTER");
                 done();
             });
     });
     it('should get 500', (done) => {
         chai.request(server)
-        .put("/competence")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            level: "Interst",
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
+            .put("/competence")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send({
+                level: "Interst",
+            })
+            .end((err, res) => {
+                res.should.have.status(500)
+                done();
+            });
     });
     it('should get 500', (done) => {
         chai.request(server)
-        .put("/competence")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            level: 2
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
+            .put("/competence")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send({
+                level: 2
+            })
+            .end((err, res) => {
+                res.should.have.status(500)
+                done();
+            });
     });
     it('should get 500', (done) => {
         chai.request(server)
-        .put("/competence")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            name: "Interst",
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
+            .put("/competence")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send({
+                name: "Interst",
+            })
+            .end((err, res) => {
+                res.should.have.status(500)
+                done();
+            });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(skillUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
     });
 });

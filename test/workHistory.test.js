@@ -96,18 +96,20 @@ after(function () {
  * Test that we can create an work.
  */
 describe('Create work', () => {
-    it('should get 200 HAPPY PATH', (done) => {
+    it('should get 200 HAPPY PATH register', (done) => {
         chai.request(server)
-            .post("/login")
-            .set({ api_key: apiKey })
-            .send(workUser)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
-                res.body.token.should.be.an('string');
-                token = res.body.token;
-                done();
-            });
+        .post("/register")
+        .set({api_key: apiKey})
+        .send(workUser)
+        .end((err, res) => {
+            res.should.have.status(200)
+            res.body.message.should.equal("ok");
+            res.body.token.should.be.an('string');
+            // wait for DB to be up.
+            delay(3000);
+            token = res.body.token;
+            done();
+        });
     });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
@@ -123,93 +125,125 @@ describe('Create work', () => {
             done();
         });
     });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(workUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
+    });
 });
 
 /** 
  * Test that we get an error.
  */
 describe('Error Create work', () => {
+    it('should get 200 HAPPY PATH register', (done) => {
+        chai.request(server)
+        .post("/register")
+        .set({api_key: apiKey})
+        .send(workUser)
+        .end((err, res) => {
+            res.should.have.status(200)
+            res.body.message.should.equal("ok");
+            res.body.token.should.be.an('string');
+            // wait for DB to be up.
+            delay(3000);
+            token = res.body.token;
+            done();
+        });
+    });
+    it('should get 500', (done) => {
+        chai.request(server)
+        .post("/workhistory")
+        .set({
+            api_key: apiKey,
+            "x-access-token": token,
+        })
+        .send({
+            desc: "desc",
+            start: "date",
+            stop: "date",
+            role: "role"
+        })
+        .end((err, res) => {
+            res.should.have.status(500)
+            done();
+        });
+    });
+    it('should get 500', (done) => {
+        chai.request(server)
+        .post("/workhistory")
+        .set({
+            api_key: apiKey,
+            "x-access-token": token,
+        })
+        .send({
+            company: "company",
+        })
+        .end((err, res) => {
+            res.should.have.status(500)
+            done();
+        });
+    });
+    it('should get 500', (done) => {
+        chai.request(server)
+        .post("/workhistory")
+        .set({
+            api_key: apiKey,
+            "x-access-token": token,
+        })
+        .send({
+            company: "company",
+            desc: "desc",
+            start: "date",
+            role: "role"
+        })
+        .end((err, res) => {
+            res.should.have.status(500)
+            done();
+        });
+    });
+    it('should get 500', (done) => {
+        chai.request(server)
+        .post("/workhistory")
+        .set({
+            api_key: apiKey,
+            "x-access-token": token,
+        })
+        .send({
+            company: "company",
+            desc: "desc",
+            stop: "date",
+            role: "role"
+        })
+        .end((err, res) => {
+            res.should.have.status(500)
+            done();
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
-            .post("/login")
-            .set({ api_key: apiKey })
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
             .send(workUser)
             .end((err, res) => {
                 res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
-                res.body.token.should.be.an('string');
-                token = res.body.token;
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
                 done();
             });
-    });
-    it('should get 500', (done) => {
-        chai.request(server)
-        .post("/workhistory")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            desc: "desc",
-            start: "date",
-            stop: "date",
-            role: "role"
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
-    });
-    it('should get 500', (done) => {
-        chai.request(server)
-        .post("/workhistory")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            company: "company",
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
-    });
-    it('should get 500', (done) => {
-        chai.request(server)
-        .post("/workhistory")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            company: "company",
-            desc: "desc",
-            start: "date",
-            role: "role"
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
-    });
-    it('should get 500', (done) => {
-        chai.request(server)
-        .post("/workhistory")
-        .set({
-            api_key: apiKey,
-            "x-access-token": token,
-        })
-        .send({
-            company: "company",
-            desc: "desc",
-            stop: "date",
-            role: "role"
-        })
-        .end((err, res) => {
-            res.should.have.status(500)
-            done();
-        });
     });
 });
 
@@ -219,18 +253,20 @@ describe('Error Create work', () => {
  * Test that we can update an work.
  */
 describe('Update work', () => {
-    it('should get 200 HAPPY PATH', (done) => {
+    it('should get 200 HAPPY PATH register', (done) => {
         chai.request(server)
-            .post("/login")
-            .set({ api_key: apiKey })
-            .send(workUser)
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
-                res.body.token.should.be.an('string');
-                token = res.body.token;
-                done();
-            });
+        .post("/register")
+        .set({api_key: apiKey})
+        .send(workUser)
+        .end((err, res) => {
+            res.should.have.status(200)
+            res.body.message.should.equal("ok");
+            res.body.token.should.be.an('string');
+            // wait for DB to be up.
+            delay(3000);
+            token = res.body.token;
+            done();
+        });
     });
     it('should get 200', (done) => {
         chai.request(server)
@@ -252,31 +288,41 @@ describe('Update work', () => {
             done();
         });
     });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(workUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
+    });
 });
 
 /** 
  * Test that we get an error when updating an work.
  */
 describe('fail updating work', () => {
-    it('should get 200 HAPPY PATH', (done) => {
+    it('should get 200 HAPPY PATH register', (done) => {
         chai.request(server)
-            .post("/login")
-            .set({ api_key: apiKey })
-            .send(workUser)
-            .end((err, res) => {
-                console.log('====================================');
-                console.log("what am I doing here");
-                console.log(res.body)
-                console.log('====================================');
-                res.should.have.status(200)
-                res.body.message.should.equal("User logged in");
-                res.body.token.should.be.an('string');
-                token = res.body.token;
-                console.log('====================================');
-                console.log(token);
-                console.log('====================================');
-                done();
-            });
+        .post("/register")
+        .set({api_key: apiKey})
+        .send(workUser)
+        .end((err, res) => {
+            res.should.have.status(200)
+            res.body.message.should.equal("ok");
+            res.body.token.should.be.an('string');
+            // wait for DB to be up.
+            delay(3000);
+            token = res.body.token;
+            done();
+        });
     });
     it('should get 500', (done) => {
         chai.request(server)
@@ -316,5 +362,20 @@ describe('fail updating work', () => {
             res.should.have.status(500)
             done();
         });
+    });
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .post("/unregister")
+            .set({
+                api_key: apiKey,
+                "x-access-token": token,
+            })
+            .send(workUser)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.message.should.equal("User removed");
+                res.body.user.should.be.an('string');
+                done();
+            });
     });
 });

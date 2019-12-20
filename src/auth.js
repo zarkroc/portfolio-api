@@ -85,6 +85,7 @@ const auth = {
             if (err || !userInfo) {
                 console.log('====================================');
                 console.log("error no user found: ", err);
+                console.log("user: ", userInfo)
                 console.log('====================================');
                 return res.status(401).json({
                     errors: {

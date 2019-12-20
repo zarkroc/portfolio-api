@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "pretest": "node pretest/pretest.js",
     "test": "nyc --reporter=html --reporter=text --reporter=clover mocha",
     "jest": "jest --config ./jest.config.json --detectOpenHandles",
     "mocha": "mocha",

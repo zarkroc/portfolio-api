@@ -55,6 +55,25 @@ function delay(interval)
 
 after(function () {
     describe('Unegister', () => {
+        describe('Register', () => {
+            it('should get 200 HAPPY PATH', (done) => {
+                chai.request(server)
+                    .post("/register")
+                    .set({ api_key: apiKey })
+                    .send(skillUser)
+                    .end((err, res) => {
+                        res.should.have.status(200)
+                        res.body.message.should.equal("ok");
+                        res.body.token.should.be.an('string');
+                        token = res.body.token;
+                        delay(3000);
+                        console.log("REGISTER REGISTER REGISTER");
+                        console.log(token);
+                        console.log("REGISTER REGISTER REGISTER");
+                        done();
+                    });
+            });
+        });
         it('should get 200 HAPPY PATH', (done) => {
             chai.request(server)
                 .post("/login")
@@ -92,6 +111,25 @@ after(function () {
  * Test that we can create an skill.
  */
 describe('Create skill', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(skillUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")
@@ -125,6 +163,25 @@ describe('Create skill', () => {
  * Test that we get an error.
  */
 describe('Error Create skill', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(skillUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")
@@ -161,6 +218,25 @@ describe('Error Create skill', () => {
  * Test that we can update an skill.
  */
 describe('Update skill', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(skillUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")
@@ -196,6 +272,25 @@ describe('Update skill', () => {
  * Test that we get an error when updating an skill.
  */
 describe('fail updating skill', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(skillUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")

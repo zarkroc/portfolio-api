@@ -96,6 +96,25 @@ after(function () {
  * Test that we can create an about.
  */
 describe('Create about', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(aboutUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")
@@ -135,6 +154,25 @@ describe('Create about', () => {
  * Test that we get an error.
  */
 describe('Error Create about', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(aboutUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")
@@ -227,6 +265,25 @@ describe('Error Create about', () => {
  * Test that we can update an about.
  */
 describe('Update about', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(aboutUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")
@@ -265,6 +322,25 @@ describe('Update about', () => {
  * Test that we get an error when updating an about.
  */
 describe('fail updating about', () => {
+    describe('Register', () => {
+        it('should get 200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .post("/register")
+                .set({ api_key: apiKey })
+                .send(aboutUser)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.message.should.equal("ok");
+                    res.body.token.should.be.an('string');
+                    token = res.body.token;
+                    delay(3000);
+                    console.log("REGISTER REGISTER REGISTER");
+                    console.log(token);
+                    console.log("REGISTER REGISTER REGISTER");
+                    done();
+                });
+        });
+    });
     it('should get 200 HAPPY PATH', (done) => {
         chai.request(server)
             .post("/login")

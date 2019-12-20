@@ -17,7 +17,6 @@ services: mongodb
 
 before_script:
     - npm install
-    - npm run pretest
 
 script:
     - npm run test

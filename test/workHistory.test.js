@@ -243,8 +243,6 @@ describe('fail updating work', () => {
             });
     });
     it('should get 500', (done) => {
-        console.log(token);
-
         chai.request(server)
             .put("/workhistory")
             .set({

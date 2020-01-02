@@ -66,12 +66,6 @@ const auth = {
     login: async function (res, body) {
         const email = body.email;
         const password = body.password;
-        console.log('============== LOGIN ======================');
-        console.log(body);
-        console.log(Auth.find().exec(function(err,res) {
-            console.log("users", res);})
-        );
-        console.log('============== LOGIN ======================');
 
         if (!email || !password) {
             return res.status(401).json({
@@ -86,10 +80,6 @@ const auth = {
 
         Auth.findOne({ email: email }, function (err, userInfo) {
             if (err || !userInfo) {
-                console.log('====================================');
-                console.log("error no user found: ", err);
-                console.log("user: ", userInfo)
-                console.log('====================================');
                 return res.status(401).json({
                     errors: {
                         status: 401,
@@ -186,9 +176,6 @@ const auth = {
     },
 
     checkToken: function (req, res, next) {
-        console.log('============== Check Token ======================');
-        console.log(req.headers);
-        console.log('====================================');
         var token = req.headers['x-access-token'];
 
         if (token) {
@@ -208,7 +195,6 @@ const auth = {
                 req.user.email = decoded.email;
 
                 next();
-
                 return undefined;
             });
         } else {
@@ -222,7 +208,6 @@ const auth = {
             });
         }
     }
-
 }
 
 module.exports = auth;

@@ -9,6 +9,8 @@ const apiKey = process.env.API_KEY
 chai.should();
 chai.use(chatHttp);
 
+var token;
+
 after(function () {
     server.stop();
 })

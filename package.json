@@ -40,5 +40,5 @@
     "url": "https://github.com/zarkroc/portfolio-api/issues"
   },
   "homepage": "https://github.com/zarkroc/portfolio-api#readme",
-  "description": ""
+  "description": "![](https://github.com/zarkroc/portfolio-api/workflows/Node%20CI/badge.svg)\r [![Build Status](https://travis-ci.com/zarkroc/portfolio-api.svg?branch=master)](https://travis-ci.com/zarkroc/portfolio-api)\r [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/?branch=master)\r [![Code Coverage](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/?branch=master)\r [![Build Status](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/badges/build.png?b=master)](https://scrutinizer-ci.com/g/zarkroc/portfolio-api/build-status/master)"
 }

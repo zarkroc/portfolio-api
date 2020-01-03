@@ -89,9 +89,6 @@ describe('/doesnotexist', () => {
             .get("/doesnotexist")
             .set({ api_key: apiKey })
             .end((err, res) => {
-                console.log('====================================');
-                console.log(res.body);
-                console.log('====================================');
                 res.should.have.status(404);
                 res.body.should.be.an("object");
                 res.body.errors.should.be.an("object");

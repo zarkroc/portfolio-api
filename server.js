@@ -65,13 +65,12 @@ app.use((err, req, res, next) => {
     }
 
     res.status(err.status || 500).json({
-        "errors": [
-            {
-                "status": err.status,
-                "title": err.message,
-                "detail": err.message
-            }
-        ]
+        "errors":
+        {
+            "status": err.status,
+            "title": err.message,
+            "detail": err.message
+        }
     });
 });
 // Start up server

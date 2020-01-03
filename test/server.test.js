@@ -80,6 +80,31 @@ describe('/', () => {
 });
 
 /** 
+ * Test that route doesn't exist
+ * When using invalid API key
+ */
+describe('/doesnotexist', () => {
+    it('should get 404 not found', (done) => {
+        chai.request(server)
+            .get("/doesnotexist")
+            .set({ api_key: apiKey })
+            .end((err, res) => {
+                console.log('====================================');
+                console.log(res.body);
+                console.log('====================================');
+                res.should.have.status(404);
+                res.body.should.be.an("object");
+                res.body.errors.should.be.an("object");
+                res.body.errors.title.should.be.a("string");
+                res.body.errors.title.should.equal("Not Found");
+                res.body.errors.detail.should.be.a("string");
+                res.body.errors.detail.should.equal("Not Found");
+                done();
+            });
+    });
+});
+
+/** 
  * Test that we get correct info from /competence
  */
 describe('/competence', () => {

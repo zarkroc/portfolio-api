@@ -27,7 +27,7 @@ const workHistory = {
                 response: "missing company"
             });
         }
-        Work.findOne({ company: body.company }).then((work, err) => {
+        Work.findById(body.id).then((work, err) => {
             if (err || work === null) {
                 return res.status(500).send({
                     status: false,

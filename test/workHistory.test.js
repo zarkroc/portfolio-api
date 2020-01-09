@@ -195,7 +195,20 @@ describe('Error Create work', () => {
  * Test that we can update an work.
  */
 describe('Update work', () => {
+    var workPlace;
     register();
+    it('should get 200', (done) => {
+        chai.request(server)
+            .get("/workhistory")
+            .set({
+                api_key: apiKey,
+            })
+            .end((err, res) => {
+                res.should.have.status(200)
+                workPlace = res.body.data.workPlaces[0];
+                done();
+            });
+    });
     it('should get 200', (done) => {
         chai.request(server)
             .put("/workhistory")
@@ -204,6 +217,7 @@ describe('Update work', () => {
                 "x-access-token": token,
             })
             .send({
+                id: workPlace._id,
                 company: "company",
                 desc: "desc",
                 start: "date",

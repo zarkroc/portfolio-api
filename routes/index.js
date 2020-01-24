@@ -8,7 +8,7 @@ var auth = require('../src/auth');
 
 router.get('/', async function (req, res) {
     var about = await About.findOne().then((res, err) => {
-        if(err) {
+        if (err) {
             return null;
         }
         return res;
@@ -17,16 +17,15 @@ router.get('/', async function (req, res) {
         data: {
             title: "Tomas Perers |CV",
             about: about,
-            msg: "hasdf"
         }
     };
     res.json(data);
 });
 
 router.post('/', (req, res, next) => auth.checkToken(req, res, next),
-(req, res) => about.add(res, req.body));
+    (req, res) => about.add(res, req.body));
 
 router.put('/', (req, res, next) => auth.checkToken(req, res, next),
-(req, res) => about.update(res, req.body));
+    (req, res) => about.update(res, req.body));
 
 module.exports = router;

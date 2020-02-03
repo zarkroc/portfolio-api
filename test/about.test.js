@@ -16,7 +16,7 @@ let aboutUser = {
 };
 
 let about = {
-    desc: "test",
+    description: "test",
     homeTown: "testtown",
     interest: "Interst",
     name: "testname"
@@ -107,7 +107,7 @@ describe('Create about', () => {
                 done();
             });
     });
-   unregister();
+    unregister();
 });
 
 /** 
@@ -123,7 +123,7 @@ describe('Error Create about', () => {
                 "x-access-token": token,
             })
             .send({
-                desc: "test",
+                description: "test",
             })
             .end((err, res) => {
                 res.should.have.status(500)
@@ -138,7 +138,7 @@ describe('Error Create about', () => {
                 "x-access-token": token,
             })
             .send({
-                desc: "test",
+                description: "test",
                 homeTown: "testtown",
             })
             .end((err, res) => {
@@ -154,7 +154,7 @@ describe('Error Create about', () => {
                 "x-access-token": token,
             })
             .send({
-                desc: "test",
+                description: "test",
                 homeTown: "testtown",
                 interest: "Interst",
             })
@@ -198,7 +198,7 @@ describe('Update about', () => {
                 "x-access-token": token,
             })
             .send({
-                desc: "test",
+                description: "test",
                 homeTown: "testtown",
                 interest: "Interst",
                 name: "testname"
@@ -240,7 +240,7 @@ describe('fail updating about', () => {
                 "x-access-token": token,
             })
             .send({
-                desc: "test"
+                description: "test"
             })
             .end((err, res) => {
                 res.should.have.status(500)

@@ -5,7 +5,7 @@ const about = {
     add: async function (res, body) {
         About.create({
             name: body.name,
-            description: body.desc,
+            description: body.description,
             location: body.homeTown,
             interest: body.interest,
         }).then(() => {
@@ -30,7 +30,7 @@ const about = {
         });
         if (user) {
             user.name = body.name;
-            user.description = body.desc;
+            user.description = body.description;
             user.location = body.homeTown;
             user.interest = body.interest;
 
@@ -43,7 +43,7 @@ const about = {
                     message: err
                 });
             })
-            
+
         } else {
             return res.status(500).json({
                 message: "fail"

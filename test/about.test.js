@@ -203,7 +203,6 @@ describe('Update about', () => {
             });
     });
     it('should get 200', (done) => {
-        console.log(userUpdate)
         chai.request(server)
             .put("/")
             .set({

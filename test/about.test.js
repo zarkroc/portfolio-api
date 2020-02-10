@@ -21,6 +21,7 @@ let about = {
     interest: "Interst",
     name: "testname"
 };
+var userUpdate;
 
 var token;
 
@@ -190,7 +191,19 @@ describe('Error Create about', () => {
  */
 describe('Update about', () => {
     register();
+    it('should get 200 HAPPY PATH', (done) => {
+        chai.request(server)
+            .get("/")
+            .set({ api_key: apiKey })
+            .send({ name: about.name })
+            .end((err, res) => {
+                res.should.have.status(200);
+                userUpdate = res.body.data.about;
+                done();
+            });
+    });
     it('should get 200', (done) => {
+        console.log(userUpdate)
         chai.request(server)
             .put("/")
             .set({
@@ -201,7 +214,8 @@ describe('Update about', () => {
                 description: "test",
                 homeTown: "testtown",
                 interest: "Interst",
-                name: "testname"
+                name: "testname",
+                id: userUpdate._id
             })
             .end((err, res) => {
                 res.should.have.status(200)

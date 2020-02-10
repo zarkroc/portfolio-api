@@ -20,7 +20,7 @@ const about = {
 
     },
     update: async function (res, body) {
-        let user = await About.findOne({ name: body.name }).then((res, err) => {
+        let user = await About.findOne({ _id: body.id }).then((res, err) => {
             if (err) {
                 return res.status(500).json({
                     message: err

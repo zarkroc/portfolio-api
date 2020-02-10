@@ -195,7 +195,7 @@ describe('Update about', () => {
         chai.request(server)
             .get("/")
             .set({ api_key: apiKey })
-            .send({ name: about.name })
+            .query({ name: about.name })
             .end((err, res) => {
                 res.should.have.status(200);
                 userUpdate = res.body.data.about;

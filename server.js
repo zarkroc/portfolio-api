@@ -20,6 +20,8 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 const mongoHost = process.env.MONGO_HOST;
 
+var corsOptions;
+
 mongoose.connect(`mongodb://${mongoHost}:27017/tomas`, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -28,7 +30,19 @@ mongoose.connect(`mongodb://${mongoHost}:27017/tomas`, {
     console.error("Failed to connect to mongo");
 });
 
-app.use(cors());
+if (process.env.NODE_ENV == "productio") {
+    corsOptions = {
+        origin: "https://tomas.perers.org",
+        optionSucessStatus: 200
+    }
+} else {
+    corsOptions = {
+        origin: "http://localhost:8080",
+        optionSucessStatus: 200
+    }
+}
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 

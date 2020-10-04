@@ -42,14 +42,24 @@ router.get("/", async function(req, res) {
       });
     }
   } else {
-    res.status(400).json({
-      errors: {
-        status: 400,
-        source: "/",
-        title: "Bad request",
-        detail: "User not specefied"
+    var about = await About.find().then((res,err) =>  {
+      if (err) {
+        return res.status(500).json({
+          errors: {
+            status: 500,
+            source: "/",
+            title: "DB error",
+            detail: "Internal error with DB"
+          }
+        });
       }
-    });
+      return res;
+    })
+    console.log(about);
+    return res.json({
+      title: "Users",
+      users: about
+    })
   }
 });
 

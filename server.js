@@ -20,7 +20,18 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 const mongoHost = process.env.MONGO_HOST;
 
-var corsOptions;
+
+var whitelist = ['http://localhost:8080', 'https://tomas.perers.org', 'http://localhost:1337']
+var corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null,true)
+        } else {
+            console.log(origin)
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
 
 mongoose.connect(`mongodb://${mongoHost}:27017/tomas`, {
     useNewUrlParser: true,
@@ -37,7 +48,7 @@ if (process.env.NODE_ENV == "productio") {
     }
 } else {
     corsOptions = {
-        origin: "http://localhost:8080",
+        origin: ["https://tomas.perers.org", "http://localhost:1337"],
         optionSucessStatus: 200
     }
 }

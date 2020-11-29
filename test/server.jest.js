@@ -5,11 +5,9 @@
 // //require("dotenv").config();
 // const apiKey = process.env.API_KEY
 
-
 // afterAll(async () => {
 //     server.stop();
 // });
-
 
 // describe('verify /', () => {
 //     it('We get a missing API key response', async (done) => {

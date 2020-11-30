@@ -1,5 +1,5 @@
 'use strict'
-const port = 1337
+var port = 1337
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -21,7 +21,9 @@ mongoose.set('useUnifiedTopology', true)
 const mongoHost = process.env.MONGO_HOST
 
 var corsOptions
-mongoose
+
+if (process.env.NODE_ENV == 'production') {
+  mongoose
   .connect(`mongodb://${mongoHost}:27017/tomas`, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -30,13 +32,21 @@ mongoose
   .catch(function (e) {
     console.error('Failed to connect to mongo')
   })
-
-if (process.env.NODE_ENV == 'production') {
   corsOptions = {
     origin: 'https://tomas.perers.org',
     optionSucessStatus: 200,
   }
 } else {
+  port = 3333
+  mongoose
+  .connect(`mongodb://${mongoHost}:27017/tomas-test`, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .catch(function (e) {
+    console.error('Failed to connect to mongo')
+  })
   corsOptions = {
     origin: [
       'https://tomas.perers.org',

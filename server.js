@@ -106,8 +106,10 @@ app.use((err, req, res, next) => {
   })
 })
 // Start up server
-const server = app.listen(port, () =>
+const server = app.listen(port, () => {
   console.log(`Tomas API listening on port ${port}!`)
+  console.log(process.env.NODE_ENV)
+}
 )
 
 function stop() {
